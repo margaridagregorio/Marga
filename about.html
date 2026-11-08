@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Marga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav aria-label="Main">
+    <div class="corner corner--tl"><a href="index.html">Marga</a></div>
+    <div class="corner corner--tr"><a href="jewelry.html">Jewelry</a></div>
+    <div class="corner corner--bl"><a href="about.html" aria-current="page">About</a></div>
+    <div class="corner corner--br"><a href="playground.html">Playground</a></div>
+  </nav>
+
+  <main class="about">
+    <div class="about-inner">
+      <h2>Designer &amp; Jeweler</h2>
+      <div class="bio">
+        <p>Based in Barcelona.</p>
+        <p>
+          Working 9 to 6 as a multitasking designer, focused on AI design systems
+          and unifying brand design.
+        </p>
+        <p>
+          Trying to beat screen exhaustion with hands-on, crafty projects. Focusing on
+          jewelry made with the lost wax method and exploring new techniques.
+        </p>
+      </div>
+      <div class="about-links" id="aboutLinks">
+        <a id="aboutEmail" href="#"></a>
+        <a id="aboutInsta" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script>
+    const email = document.getElementById("aboutEmail");
+    email.href = "mailto:" + window.CONTACT.email;
+    email.textContent = window.CONTACT.email;
+    document.getElementById("aboutInsta").href = window.CONTACT.instagram;
+  </script>
+</body>
+</html>

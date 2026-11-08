@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jewelry — Marga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav aria-label="Main">
+    <div class="corner corner--tl"><a href="index.html">Marga</a></div>
+    <div class="corner corner--tr"><a href="jewelry.html" aria-current="page">Jewelry</a></div>
+    <div class="corner corner--bl"><a href="about.html">About</a></div>
+    <div class="corner corner--br"><a href="playground.html">Playground</a></div>
+  </nav>
+
+  <main class="product" id="product">
+    <header class="product-head">
+      <h1 id="pName"></h1>
+      <h2 class="material" id="pMaterial"></h2>
+      <p class="status" id="pStatus"></p>
+      <div class="product-desc" id="pDesc"></div>
+    </header>
+    <section class="product-images" id="pImages" aria-label="Photos"></section>
+  </main>
+
+  <aside class="minimap" id="minimap" aria-hidden="true"></aside>
+
+  <script src="js/data.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Playground — Marga</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav aria-label="Main">
+    <div class="corner corner--tl"><a href="index.html">Marga</a></div>
+    <div class="corner corner--tr"><a href="jewelry.html">Jewelry</a></div>
+    <div class="corner corner--bl"><a href="about.html">About</a></div>
+    <div class="corner corner--br"><a href="playground.html" aria-current="page">Playground</a></div>
+  </nav>
+
+  <main class="playground" id="playground" aria-label="Playground — drag to explore"></main>
+
+  <p class="cursor-label" id="cursorLabel">Drag to explore</p>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Project">
+    <figure>
+      <div id="viewerMedia"></div>
+      <figcaption><span id="viewerTitle"></span><span id="viewerYear" class="muted"></span></figcaption>
+    </figure>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/playground.js"></script>
+</body>
+</html>

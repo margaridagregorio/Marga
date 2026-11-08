@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marga</title>
+  <meta name="description" content="Marga — jewelry and playground.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home">
+
+  <nav aria-label="Main">
+    <div class="corner corner--tl"><a href="index.html" aria-current="page">Marga</a></div>
+    <div class="corner corner--tr"><a href="jewelry.html">Jewelry</a></div>
+    <div class="corner corner--bl"><a href="about.html">About</a></div>
+    <div class="corner corner--br"><a href="playground.html">Playground</a></div>
+  </nav>
+
+  <div class="home-media" id="homeMedia">
+    <!-- home.js picks assets/video/home.mp4 (desktop) or home-mobile.mp4 (phones).
+         The video loops forever. -->
+    <video id="homeVideo" autoplay muted loop playsinline preload="auto"
+           data-desktop="assets/video/home.mp4" data-mobile="assets/video/home-mobile.mp4"></video>
+  </div>
+
+  <h1 class="bigname" id="bigName" aria-label="Marga"><span data-text="Marga">Marga</span></h1>
+
+  <script src="js/data.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
