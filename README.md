@@ -6,7 +6,7 @@ Portfolio website — plain HTML, CSS and JavaScript. No build step, no installs
 
 | File              | What it is                                                      |
 | ----------------- | --------------------------------------------------------------- |
-| `index.html`      | Home — full-screen video, big red "Marga", one fixed screen     |
+| `index.html`      | Home — full-screen video, one fixed screen                      |
 | `jewelry.html`    | Products scattered on the page (click empty space to shuffle)   |
 | `product.html`    | One product — opened as `product.html?item=<slug>`              |
 | `playground.html` | Infinite grid you drag around with the mouse / trackpad / touch |

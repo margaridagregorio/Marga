@@ -1,0 +1,353 @@
+/* ==========================================================
+   MARGA — portfolio
+   Type, colours, sizes and margins follow cathydolle.com:
+   Neue Montreal, 11px uppercase, dark grey on off-white, 12-col grid.
+   ========================================================== */
+
+/* Neue Montreal (free for personal use from pangrampangram.com).
+   Drop the .otf/.woff2 files into assets/fonts/ with these names
+   and they are picked up automatically. Until then Inter is used. */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("../assets/fonts/NeueMontreal-Regular.woff2") format("woff2"),
+       url("../assets/fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("../assets/fonts/NeueMontreal-Medium.woff2") format("woff2"),
+       url("../assets/fonts/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --bg: #F9F8F2; /* off-white */
+  --fg: #272727; /* near-black */
+  --tile: #EDECE6; /* empty playground tile while it loads */
+  /* With mix-blend-mode: difference, this shows as exactly --fg on --bg
+     and stays readable over photos (#F9F8F2 - #272727 = #D2D1CB). */
+  --blend: #D2D1CB;
+  --muted: 0.5;
+
+  /* grid: 12 columns, margin = gutter ≈ 0.555vw (5.7px at 1024px) */
+  --m: max(5px, 0.5555vw);
+  --g: var(--m);
+  --col: calc((100vw - 2 * var(--m) - 11 * var(--g)) / 12);
+  --step: calc(var(--col) + var(--g));
+
+  --fs: 11px;
+  --menu-fs: 22px; /* menu is twice the body text */
+  --font: "Neue Montreal", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: var(--fs);
+  line-height: 1.1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+a { color: inherit; text-decoration: none; }
+img, video { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; font-weight: inherit; font-size: inherit; }
+
+.upper { text-transform: uppercase; }
+.muted { opacity: var(--muted); }
+
+/* ---------- 4-corner menu ---------- */
+.corner {
+  position: fixed;
+  z-index: 100;
+  padding: var(--m);
+  font-size: var(--menu-fs);
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+.corner a:hover,
+.corner a[aria-current="page"] { text-decoration: underline; text-underline-offset: 2px; }
+.corner--tl { top: 0; left: 0; }
+.corner--tr { top: 0; right: 0; }
+.corner--bl { bottom: 0; left: 0; }
+.corner--br { bottom: 0; right: 0; }
+.home .corner { color: var(--bg); } /* off-white over the video */
+.page-playground .corner { color: var(--blend); mix-blend-mode: difference; }
+
+/* ---------- page transition ---------- */
+body { animation: fadeIn 0.6s var(--ease) both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ==========================================================
+   HOME
+   ========================================================== */
+/* one fixed screen: no scrolling on the homepage */
+.home { height: 100vh; height: 100svh; overflow: hidden; background: var(--fg); }
+
+.home-media {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--fg);
+}
+.home-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================
+   PLAYGROUND — infinite draggable grid
+   ========================================================== */
+.playground {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.playground.is-dragging { cursor: grabbing; }
+
+.tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: var(--tile);
+  will-change: transform;
+}
+.tile img,
+.tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  filter: grayscale(1); /* black & white in the grid, colour in the viewer */
+  transition: transform 0.8s var(--ease), filter 0.6s var(--ease);
+}
+.tile:hover img,
+.tile:hover video { transform: scale(1.04); }
+
+/* label that follows the cursor */
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  pointer-events: none;
+  font-size: 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--blend);
+  mix-blend-mode: difference;
+  transform: translate(-100px, -100px);
+}
+
+/* project viewer */
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(249, 248, 242, 0.92); /* --bg at 92% */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+.viewer.is-open { opacity: 1; pointer-events: auto; cursor: zoom-out; }
+.viewer figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.viewer img,
+.viewer video { max-height: 78vh; max-width: 80vw; width: auto; object-fit: contain; }
+.viewer figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ==========================================================
+   JEWELRY — scattered products (cathydolle.com/shop)
+   ========================================================== */
+.shop {
+  position: relative;
+  min-height: 100vh;
+  cursor: crosshair;
+}
+.product-card {
+  position: absolute;
+  width: calc(2 * var(--col) + var(--g));
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  opacity: 0;
+  filter: blur(6px);
+  transition: left 0.9s var(--ease), top 0.9s var(--ease),
+              opacity 0.7s ease-out, filter 0.7s ease-out;
+}
+.product-card.is-in { opacity: 1; filter: blur(0); }
+.product-card figure { margin: 0; }
+.product-card img {
+  max-height: 25vh;
+  width: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+.product-card footer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.product-card footer span,
+.product-card footer h3 { opacity: var(--muted); transition: opacity 0.7s ease-out; }
+.product-card:hover footer h3 { opacity: 1; }
+
+/* ==========================================================
+   PRODUCT PAGE (cathydolle.com/shop/<item>)
+   ========================================================== */
+.product {
+  position: relative;
+  padding: 72px var(--m) 120px;
+}
+.product-head {
+  position: relative;
+  margin-left: calc(2 * var(--step));
+  display: grid;
+  grid-template-columns: repeat(7, var(--col));
+  column-gap: var(--g);
+  row-gap: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.product-head h1 { grid-column: 1 / span 4; }
+.product-head .material { grid-column: 5 / span 2; }
+.product-head .status { grid-column: 7 / span 1; text-transform: none; white-space: nowrap; }
+.product-head .status a { text-decoration: underline; text-underline-offset: 2px; }
+.product-desc {
+  grid-column: 1 / span 2;
+  font-weight: 400;
+  text-transform: none;
+  opacity: 0.6;
+}
+.product-desc p + p { margin-top: 1.1em; }
+
+.product-images {
+  margin-left: calc(2 * var(--step));
+  margin-top: 56px;
+  width: calc(7 * var(--col) + 6 * var(--g));
+  display: flex;
+  flex-direction: column;
+  gap: var(--g);
+}
+.product-images .single {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+/* portrait photos keep more of the frame instead of a 16:9 crop */
+.product-images .single.is-portrait { aspect-ratio: 4 / 5; }
+.product-images .pair {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--g);
+  padding: 24px 0;
+}
+.product-images .pair img {
+  width: calc(3 * var(--col) + 2 * var(--g));
+  aspect-ratio: 249 / 362;
+  object-fit: cover;
+}
+
+/* mini map on the right */
+.minimap {
+  position: fixed;
+  top: 50%;
+  left: calc(var(--m) + 10 * var(--step) + 28px);
+  transform: translateY(-50%);
+  width: 47px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  cursor: pointer;
+  z-index: 20;
+}
+.minimap img { width: 100%; aspect-ratio: 47 / 27; object-fit: cover; opacity: 0.45; transition: opacity 0.3s; }
+.minimap .mm-pair { display: flex; gap: 3px; }
+.minimap .mm-pair img { width: calc(50% - 1.5px); }
+.minimap img.is-visible { opacity: 1; }
+
+/* ==========================================================
+   ABOUT (cathydolle.com about overlay)
+   ========================================================== */
+.about {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px var(--m);
+}
+.about-inner {
+  margin-left: calc(3 * var(--step));
+  width: calc(4 * var(--col) + 3 * var(--g));
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  text-transform: uppercase;
+}
+.about-inner h2 { text-transform: none; }
+.about-inner .bio { text-transform: none; width: calc(3 * var(--col) + 2 * var(--g)); opacity: var(--muted); }
+.about-inner .bio p + p { margin-top: 1.1em; }
+.about-links { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 40px; opacity: var(--muted); }
+.about-links a:hover { opacity: 1; text-decoration: underline; }
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+@media (max-width: 767px) {
+  :root { --m: 8px; --col: calc((100vw - 2 * var(--m) - 3 * var(--g)) / 4); }
+
+  /* menu sits at the top in two lines: Marga / Jewelry, then About / Playground */
+  .corner--bl,
+  .corner--br { top: calc(var(--menu-fs) * 1.5); bottom: auto; }
+
+  .shop { padding: 96px var(--m) 64px; cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 40px var(--g); }
+  .product-card { position: static; width: auto; }
+  .product-card img { max-height: 32vh; }
+
+  .product { padding-top: 104px; }
+  .product-head,
+  .product-images { margin-left: 0; }
+  .product-head { grid-template-columns: repeat(4, 1fr); }
+  .product-head h1 { grid-column: 1 / span 2; }
+  .product-head .material { grid-column: 3; }
+  .product-head .status { grid-column: 4; text-align: right; }
+  .product-desc { grid-column: 1 / -1; }
+  .product-images { width: 100%; }
+  .product-images .pair img { width: calc(50% - var(--g) / 2); }
+  .minimap { display: none; }
+
+  .about-inner { margin-left: 0; width: 100%; }
+  .about-inner .bio { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

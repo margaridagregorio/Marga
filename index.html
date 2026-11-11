@@ -20,15 +20,12 @@
   </nav>
 
   <div class="home-media" id="homeMedia">
-    <!-- home.js picks assets/video/home.mp4 (desktop) or home-mobile.mp4 (phones).
+    <!-- home.js plays assets/video/home.mp4 (data-mobile can point to a portrait version).
          The video loops forever. -->
     <video id="homeVideo" autoplay muted loop playsinline preload="auto"
-           data-desktop="assets/video/home.mp4" data-mobile="assets/video/home-mobile.mp4"></video>
+           data-desktop="assets/video/home.mp4" data-mobile="assets/video/home.mp4"></video>
   </div>
 
-  <h1 class="bigname" id="bigName" aria-label="Marga"><span data-text="Marga">Marga</span></h1>
-
-  <script src="js/data.js"></script>
   <script src="js/home.js"></script>
 </body>
 </html>
