@@ -27,8 +27,9 @@
     }
     const W = innerWidth;
     const H = innerHeight;
-    const top = 56; // clear the menu
-    const bottom = 56;
+    // keep products clear of the menu at the top and bottom
+    const top = document.querySelector(".corner").offsetHeight + 16;
+    const bottom = top;
     const placed = [];
 
     cards.forEach((card) => {
