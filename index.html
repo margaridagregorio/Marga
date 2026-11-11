@@ -20,9 +20,9 @@
   </nav>
 
   <div class="home-media" id="homeMedia">
-    <!-- home.js plays assets/video/home.mp4 (data-mobile can point to a portrait version).
-         The video loops forever. -->
-    <video id="homeVideo" autoplay muted loop playsinline preload="auto"
+    <!-- The video loops forever. src works on its own; home.js only swaps in
+         data-mobile on phones (point it to a portrait version if you make one). -->
+    <video id="homeVideo" src="assets/video/home.mp4" autoplay muted loop playsinline preload="auto"
            data-desktop="assets/video/home.mp4" data-mobile="assets/video/home.mp4"></video>
   </div>
 
